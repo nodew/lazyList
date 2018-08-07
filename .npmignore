@@ -1,0 +1,9 @@
+src
+coverage
+node_modules
+__tests__
+*.log
+.gitignore
+jest.config.js
+tsconfig.json
+tslint.json

@@ -5,7 +5,7 @@ describe("utils", () => {
     expect(L.head(L.repeat(10))).toBe(10);
   });
 
-  it("tail", () => {
-    expect(Array.from(L.tail([1, 2, 3]))).toEqual([2, 3]);
+  it("size", () => {
+    expect(L.size<number>(L.replicate<number>(1, 10))).toEqual(10);
   });
 });
