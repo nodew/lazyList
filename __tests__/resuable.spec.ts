@@ -1,6 +1,6 @@
 import * as L from "../src";
 
-describe("lazy wrap", () => {
+describe("resuable iterators", () => {
   it("repeat", () => {
     const repeat10 = L.repeat_(10);
     const a = Array.from(L.take(100, repeat10));
@@ -50,7 +50,7 @@ describe("lazy wrap", () => {
   });
 
   it("takeWhile", () => {
-    const lst = L.takeWhile_<number>(item => item < 3, L.range(1, 5))
+    const lst = L.takeWhile_<number>(item => item < 3, L.range(1, 5));
     expect(Array.from(lst)).toEqual([...lst]);
   });
 
