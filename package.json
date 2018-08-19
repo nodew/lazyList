@@ -1,13 +1,14 @@
 {
   "name": "@nodew/lazylist",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "A lazy list implementation with generator and iterator",
   "main": "lib/index.js",
   "scripts": {
     "lint": "tslint -p ./tsconfig.json --fix",
-    "build": "tsc --outdir lib --project ./tsconfig.json --declaration",
+    "build": "rm -rf lib && tsc --outdir lib --project ./tsconfig.json --declaration",
     "test": "jest",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",

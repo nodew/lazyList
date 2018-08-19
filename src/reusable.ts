@@ -56,7 +56,7 @@ export function zip_<T, G>(seqA: Iterable<T>, seqB: Iterable<G>) {
   return wrap(op.zip(seqA, seqB));
 }
 
-export function zipWith<T, G, R>(
+export function zipWith_<T, G, R>(
   fn: (a: T, b: G) => R,
   seqA: Iterable<T>,
   seqB: Iterable<G>

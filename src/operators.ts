@@ -44,24 +44,19 @@ export function* takeWhile<T>(
 }
 
 export function* drop<T>(n: number, items: Iterable<T>) {
+  const lst = lift(items);
   let i = 0;
-  for (let item of items) {
-    if (i >= n) {
-      yield item;
-    }
+  while (i < n) {
+    lst.next();
     i++;
   }
+  yield* lst;
 }
 
 export function* tail<T>(items: Iterable<T>) {
-  let visited = false;
-  for (let item of items) {
-    if (visited) {
-      yield item;
-    } else {
-      visited = true;
-    }
-  }
+  const lst = lift(items);
+  lst.next();
+  yield* lst;
 }
 
 export function* zip<T, G>(
