@@ -1,7 +1,6 @@
 export function head<T>(items: Iterable<T>): T {
-  for (let item of items) {
-    return item;
-  }
+  const xs = lift(items);
+  return xs.next().value;
 }
 
 export function size<T>(items: Iterable<T>): number {

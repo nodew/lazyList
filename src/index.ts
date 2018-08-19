@@ -8,4 +8,6 @@ export * from "./reusable";
 
 export * from "./utils";
 
+export * from "./classic";
+
 export { wrap };

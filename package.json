@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "lint": "tslint -p ./tsconfig.json --fix",
-    "build": "tsc --outdir lib --project ./tsconfig.json --declaration",
+    "build": "rm -rf lib && tsc --outdir lib --project ./tsconfig.json --declaration",
     "test": "jest",
     "coverage": "jest --coverage"
   },

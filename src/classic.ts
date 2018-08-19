@@ -1,5 +1,4 @@
-import { head, wrap } from "./index";
-import { tail, filter, take } from "./operators";
+import { filter } from "./operators";
 import { iterate } from "./generators";
 import { lift } from "./utils";
 
@@ -17,10 +16,11 @@ export function* fibonacci() {
 
 export function* primes() {
   const sieve = function*(xs: Iterable<number>): Iterable<number> {
-    const cachedItor = wrap(lift(xs));
-    const item = head(cachedItor);
+    const itor = lift(xs);
+    const val = itor.next();
+    const item = val.value;
     yield item;
-    yield* sieve(filter(x => x % item !== 0, tail(cachedItor)));
+    yield* sieve(filter(x => x % item !== 0, itor));
   };
   yield* sieve(iterate(n => n + 1, 2));
 }
