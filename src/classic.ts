@@ -1,26 +1,45 @@
-import { filter } from "./operators";
+import { takeWhile, find } from "./operators";
 import { iterate } from "./generators";
-import { lift } from "./utils";
+import wrap from "./wrap";
 
-export function* fibonacci() {
-  let prev = 1;
-  let last = 1;
+export const fibonacci = wrap(
+  (function*() {
+    let prev = 1;
+    let last = 1;
 
-  while (true) {
-    yield prev;
-    const temp = prev;
-    prev = last;
-    last = temp + prev;
-  }
-}
+    while (true) {
+      yield prev;
+      const temp = prev;
+      prev = last;
+      last = temp + prev;
+    }
+  })()
+);
 
-export function* primes() {
-  const sieve = function*(xs: Iterable<number>): Iterable<number> {
-    const itor = lift(xs);
-    const val = itor.next();
-    const item = val.value;
-    yield item;
-    yield* sieve(filter(x => x % item !== 0, itor));
-  };
-  yield* sieve(iterate(n => n + 1, 2));
-}
+export const primes = wrap(
+  (function*() {
+    const itor = iterate(n => n + 2, 3);
+    yield 2;
+    while (true) {
+      const val = itor.next();
+      const item = val.value;
+      if (!find(p => item % p === 0, takeWhile(x => x * x <= item, primes))) {
+        yield item;
+      }
+    }
+  })()
+);
+
+export const yinyang = wrap(
+  (function*() {
+    function* yin(yin) {
+      yield "@";
+      function* yang(yang) {
+        yield "*";
+        yield* yin(yang);
+      }
+      yield* yang(yang);
+    }
+    yield* yin(yin);
+  })()
+);

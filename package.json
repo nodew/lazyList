@@ -8,7 +8,7 @@
     "build": "rm -rf lib && tsc --outdir lib --project ./tsconfig.json --declaration",
     "test": "jest",
     "coverage": "jest --coverage",
-    "prepublish": "npm run build"
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",

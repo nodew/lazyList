@@ -1,9 +1,6 @@
 function wrap<T>(iterator: IterableIterator<T>): Iterable<T> {
   const sequence = [];
-  let index = -1;
-
-  const next = () => {
-    index++;
+  const next = index => {
     if (sequence.length > index) {
       return {
         value: sequence[index],
@@ -14,6 +11,7 @@ function wrap<T>(iterator: IterableIterator<T>): Iterable<T> {
     if (!done) {
       sequence.push(value);
     }
+
     return {
       value,
       done
@@ -22,9 +20,12 @@ function wrap<T>(iterator: IterableIterator<T>): Iterable<T> {
 
   return {
     [Symbol.iterator]: function() {
-      index = -1;
+      let index = -1;
       return {
-        next
+        next() {
+          index++;
+          return next(index);
+        }
       };
     }
   };

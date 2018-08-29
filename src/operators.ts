@@ -53,6 +53,11 @@ export function* drop<T>(n: number, items: Iterable<T>) {
   yield* lst;
 }
 
+export function head<T>(items: Iterable<T>): T {
+  const xs = lift(items);
+  return xs.next().value;
+}
+
 export function* tail<T>(items: Iterable<T>) {
   const lst = lift(items);
   lst.next();
@@ -87,5 +92,44 @@ export function* zipWith<T, G, R>(
     yield fn(valA.value, valB.value);
     valA = itorA.next();
     valB = itorB.next();
+  }
+}
+
+export function* append<T>(...series: Iterable<T>[]): IterableIterator<T> {
+  for (let s of series) {
+    yield* s;
+  }
+}
+
+export function find<T>(predicate: (T) => boolean, items: Iterable<T>): T {
+  for (let item of items) {
+    if (predicate(item)) {
+      return item;
+    }
+  }
+  return undefined;
+}
+
+export function foldl<T, G>(
+  f: (acc: G, prev: T) => G,
+  initial: G,
+  items: Iterable<T>
+): G {
+  let _acc = initial;
+  for (const item of items) {
+    _acc = f(_acc, item);
+  }
+  return _acc;
+}
+
+export function* scanl<T, G>(
+  f: (acc: G, prev: T) => G,
+  inital: G,
+  items: Iterable<T>
+): Iterable<G> {
+  let _acc = inital;
+  for (const item of items) {
+    _acc = f(_acc, item);
+    yield _acc;
   }
 }
