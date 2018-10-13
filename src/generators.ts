@@ -1,8 +1,16 @@
 import { take } from "./operators";
 
 export function* repeat<T>(item: T) {
-  while (true) {
-    yield item;
+  const isIterable = typeof item[Symbol.iterator] === 'function';
+
+  if (isIterable) {
+    while (true) {
+      yield [...item];
+    }
+  } else {
+    while (true) {
+      yield item;
+    }
   }
 }
 

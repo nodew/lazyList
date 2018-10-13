@@ -24,7 +24,22 @@ describe("iterable list generators", () => {
   });
 
   it("replicate", () => {
-    expect(Array.from(L.replicate(10, 5))).toEqual([10, 10, 10, 10, 10]);
+    expect(Array.from(L.replicate([8, [10, 12]], 5))).toEqual([
+      [8, [10, 12]],
+      [8, [10, 12]],
+      [8, [10, 12]],
+      [8, [10, 12]],
+      [8, [10, 12]]
+    ]);
+    expect(Array.from(L.replicate([1], 2))).toEqual([
+      [1],
+      [1]
+    ]);
+    expect(Array.from(L.replicate(7, 2))).toEqual([7, 7]);
+    expect(Array.from(L.replicate({ name: '1', age: '2' }, 2))).toEqual([
+      { name: '1', age: '2' },
+      { name: '1', age: '2' }
+    ]);
   });
 
   it("random", () => {
